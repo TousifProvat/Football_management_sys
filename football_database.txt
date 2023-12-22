@@ -1,0 +1,9 @@
+Team1 4
+John 10 FWD 5 0 90
+Mike 7 MID 3 0 80
+Sarah 5 DEF 0 2 90
+Tousif 13 FWD 14 0 100
+Team2 3
+Alice 9 MID 2 1 75
+Bob 3 DEF 0 1 90
+SAZIA 14 DEF 0 10 130
