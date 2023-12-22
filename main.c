@@ -69,8 +69,6 @@ void saveTeamsToFile(struct Team teams[], int teamCount){
         return;
     }
 
-    printf("%d", teamCount);
-
     for(int i=0; i< teamCount; i++){
         fprintf(file,"%s %d\n",teams[i].teamName,teams[i].memberCount);
         for(int j = 0; j < teams[i].memberCount; j++){
@@ -256,11 +254,6 @@ void showStats(struct Team teams[], int teamsCount){
 
 void chooseTeam(struct Team teams[],int teamCount, int *team){
 
-    if(teamCount <= 0){
-        printf("You must create a team first!\n");
-        return;
-    }
-
     printf("\nChoose a team:\n");
 
     for(int i = 0; i < teamCount; i++){
@@ -298,12 +291,19 @@ int main() {
                 printf("You cannot add more than 20 teams!");
                 break;
             }
+
             printf("Enter Team Name: ");
-            scanf("%s", footballTeams[numTeams].teamName);
+            scanf("%s",footballTeams[numTeams].teamName);
             footballTeams[numTeams].memberCount = 0;
             numTeams++;
             break;
         case 2:
+
+            if(numTeams <= 0){
+                printf("\n\nYou must create a team first!\n\n");
+                break;
+            }
+
             chooseTeam(footballTeams, numTeams, &selectedTeam);
             /// Add players to a team by taking player information as user input   
             printf("\nPlayer Name: ");
@@ -332,11 +332,21 @@ int main() {
             break;
         case 3:
             /// Display team information
+            if(numTeams <= 0){
+                printf("\n\nYou must create a team first!\n\n");
+                break;
+            }
+            
             chooseTeam(footballTeams,numTeams,&selectedTeam);
             displayTeam(&footballTeams[selectedTeam-1]);
             break;
         case 4:
             /// Update Team information
+            if(numTeams <= 0){
+                printf("\n\nYou must create a team first!\n\n");
+                break;
+            }
+            
             chooseTeam(footballTeams,numTeams,&selectedTeam);
             updateTeamInfo(&footballTeams[selectedTeam-1]);
             updateStatistics(footballTeams,numTeams);
