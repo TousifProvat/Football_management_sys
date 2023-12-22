@@ -103,7 +103,7 @@ void addPlayerToTeam(struct Team *team, struct Player *player){
 
 /// implement function displayPlayer
 void displayPlayer(struct Player *player){
-    printf("%s\t%d\t%s\t%d\t%d\t%d\n", player->playerName,player->playerNumber,player->playerPosition,player->goalsScored,player->goalsConceded,player->minutesPlayed);
+    printf("%s\t%d\t%s\t%10d\t%10d\t%10d\n", player->playerName,player->playerNumber,player->playerPosition,player->goalsScored,player->goalsConceded,player->minutesPlayed);
 }
 
 /// implement function displayTeam
@@ -115,30 +115,56 @@ void displayTeam(struct Team *team){
     for(int i = 0; i < team -> memberCount; i++){
         displayPlayer(&team -> members[i]);
     }
+    printf("\n");
 }
 
 /// implement function updateTeamInfo
 void updatePlayerInfo(struct Player *player){
-    if(strcmp(player -> playerPosition,"MID")==0 || strcmp(player -> playerPosition,"FWD")==0){
-        printf("Enter Goals Scored: ");
-        scanf("%d", &player -> goalsScored);
-    }else{
-        printf("Enter Goals Conceded: ");
-        scanf("%d", &player -> goalsConceded);
+    int choice = 0;
+    printf("Player menu:\n1.Update Name\n2.Update Number\n3.Update Goals Scored/Conceded\n4.Update Minutes Played\n5.Cancel\n");
+    printf("Enter your choice: ");
+    scanf("%d",&choice);
+
+    switch(choice){
+        case 1:
+            printf("Enter New Name: ");
+            scanf("%s", player->playerName);
+            break;
+        case 2:
+            printf("Player Number: ");
+            scanf("%d", &player->playerNumber);
+            break;
+        case 3:
+            if(strcmp(player->playerPosition,"MID")==0 || strcmp(player->playerPosition,"FWD")==0){
+                printf("Enter Goals Scored: ");
+                scanf("%d", &player -> goalsScored);
+            }else{
+                printf("Enter Goals Conceded: ");
+                scanf("%d", &player -> goalsConceded);
+            }
+            break;
+        case 4:
+            printf("Minutes Played: ");
+            scanf("%d", &player->minutesPlayed);
+            break;
+        case 5:
+            break;
     }
+
+    
 }
 
 void updateTeamInfo(struct Team *team){
     int choice = 0;
     int playerChoice = 0;
 
-    printf("Team menu:\n1.Update Name\n2.Update Player\n3.Cancel\n");
+    printf("Team menu:\n1.Update Team Name\n2.Update Player Info\n3.Cancel\n");
     printf("Enter your choice: ");
     scanf("%d",&choice);
 
     switch(choice){
         case 1:
-            printf("Enter New Team Name:");
+            printf("Enter New Team Name: ");
             scanf("%s",team -> teamName);
             break;
         case 2:
@@ -229,16 +255,16 @@ void showStats(struct Team teams[], int teamsCount){
 
 
 void chooseTeam(struct Team teams[],int teamCount, int *team){
-    printf("Choose a team: \n");
+    printf("\nChoose a team:\n");
 
     for(int i = 0; i < teamCount; i++){
         printf("%d.%s\n",i+1,teams[i].teamName);
     }
 
-    printf("Team: ");
+    printf("\nTeam: ");
     scanf("%d",&*team);
             
-    printf("\nProceeding...\n");
+    printf("\nProceeding...\n\n");
 }
 
 int main() {
