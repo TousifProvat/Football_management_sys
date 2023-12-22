@@ -255,6 +255,12 @@ void showStats(struct Team teams[], int teamsCount){
 
 
 void chooseTeam(struct Team teams[],int teamCount, int *team){
+
+    if(teamCount <= 0){
+        printf("You must create a team first!\n");
+        return;
+    }
+
     printf("\nChoose a team:\n");
 
     for(int i = 0; i < teamCount; i++){
@@ -279,7 +285,7 @@ int main() {
         printf("----------------------------------------------------------------------\n");
         printf("----------Welcome to Football Management System (FMS)-----------------\n");
         printf("----------------------------------------------------------------------\n\n");
-        printf("Menu:\n1.Add a player\n2.Display Team information\n3.Update team information\n4.Show Statistics\n5.Save Team\n6.Exit\n");
+        printf("Menu:\n1.Add a team\n2.Add a player\n3.Display Team information\n4.Update team information\n5.Show Statistics\n6.Save Team\n7.Exit\n");
         printf("Enter your choice: ");
         scanf("%d",&choice);
 
@@ -288,6 +294,16 @@ int main() {
 
         switch(choice){
         case 1:
+            if(numTeams >= MAX_TEAMS){
+                printf("You cannot add more than 20 teams!");
+                break;
+            }
+            printf("Enter Team Name: ");
+            scanf("%s", footballTeams[numTeams].teamName);
+            footballTeams[numTeams].memberCount = 0;
+            numTeams++;
+            break;
+        case 2:
             chooseTeam(footballTeams, numTeams, &selectedTeam);
             /// Add players to a team by taking player information as user input   
             printf("\nPlayer Name: ");
@@ -314,26 +330,26 @@ int main() {
             addPlayerToTeam(&footballTeams[selectedTeam-1],&player);
             updateStatistics(footballTeams,numTeams);
             break;
-        case 2:
+        case 3:
             /// Display team information
             chooseTeam(footballTeams,numTeams,&selectedTeam);
             displayTeam(&footballTeams[selectedTeam-1]);
             break;
-        case 3:
+        case 4:
             /// Update Team information
             chooseTeam(footballTeams,numTeams,&selectedTeam);
             updateTeamInfo(&footballTeams[selectedTeam-1]);
             updateStatistics(footballTeams,numTeams);
             break;
-        case 4:
+        case 5:
             /// show statistics like Most goals scored, Most goals conceded by a team and most minutes played by a player
             showStats(footballTeams,numTeams);
             break;
-        case 5:
+        case 6:
             /// Save teams to file
             saveTeamsToFile(footballTeams, numTeams);
             break;
-        case 6:
+        case 7:
             printf("Thanks for using our System!!!");
             exit(0);
             break;
